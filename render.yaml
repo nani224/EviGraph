@@ -3,7 +3,7 @@ services:
     name: evigraph
     runtime: python
     plan: free
-    buildCommand: "cd 'SIH 2026/SIH26/frontend' && npm install && npm run build && cd ../backend && pip install -r requirements.txt"
+    buildCommand: "pip install -r 'SIH 2026/SIH26/backend/requirements-render.txt'"
     startCommand: "cd 'SIH 2026/SIH26' && python -m uvicorn backend.main:app --host 0.0.0.0 --port $PORT"
     envVars:
       - key: PYTHON_VERSION

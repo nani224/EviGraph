@@ -44,6 +44,8 @@ htmlcov/
 # Production build outputs
 dist/
 */dist/
+!SIH 2026/SIH26/frontend/dist/
+!SIH 2026/SIH26/frontend/dist/**
 build/
 out/
 
