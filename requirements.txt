@@ -2,6 +2,7 @@ fastapi>=0.110.0
 uvicorn>=0.29.0
 pyjwt>=2.8.0
 cryptography>=42.0.0
+opencv-python-headless>=4.9.0
 networkx>=3.2.1
 scikit-learn>=1.4.0
 python-louvain>=0.16

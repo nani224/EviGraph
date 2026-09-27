@@ -2798,8 +2798,13 @@ def search_target_vehicle_in_scene(req: TargetVehicleSearchRequest):
     except Exception as e:
         raise HTTPException(status_code=400, detail=f"Invalid image data: {e}")
 
-    result = _search_target_in_scene(img, req.target_plate)
-    return result
+    try:
+        result = _search_target_in_scene(img, req.target_plate)
+        return result
+    except Exception as e:
+        import traceback
+        traceback.print_exc()
+        raise HTTPException(status_code=500, detail=f"Scene spotter analysis failed: {str(e)}")
 
 
 
