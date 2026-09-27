@@ -1,0 +1,1 @@
+{"call_type":"voice_call","case_id":"case-7642","confidence":0.98,"duration_sec":240,"from_phone":"+91-9876543210","id":"CDR-1002","source_file":"1_telecom_cdr_records.csv","timestamp":"2026-08-30T10:15:22+05:30","to_phone":"+91-9988776655","tower_from":"TWR-HYD-04","tower_to":"TWR-HYD-04"}

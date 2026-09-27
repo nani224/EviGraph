@@ -1,0 +1,208 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── CSS Variables ─────────────────────────────────────── */
+:root {
+  --bg-base:      #030712;
+  --bg-primary:   #0a0f1e;
+  --bg-card:      #0d1526;
+  --bg-elevated:  #111d35;
+  --accent-cyan:  #06b6d4;
+  --accent-blue:  #3b82f6;
+  --border-subtle: rgba(34,211,238,0.10);
+  --border-active: rgba(34,211,238,0.30);
+  --text-primary: #f1f5f9;
+  --text-muted:   #64748b;
+  --text-dim:     #334155;
+}
+
+/* ── Base ───────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body, #root {
+  height: 100%;
+  background-color: var(--bg-base);
+  color: var(--text-primary);
+  font-family: 'Inter', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(34,211,238,0.2); border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(34,211,238,0.4); }
+
+/* ── Glass morphism card ──────────────────────────────── */
+@layer components {
+  .glass-card {
+    @apply bg-navy-800/90 backdrop-blur-sm border border-[rgba(34,211,238,0.10)] rounded-xl;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.5), 0 4px 12px rgba(0,0,0,0.3);
+  }
+
+  .glass-card-hover {
+    @apply glass-card transition-all duration-200;
+  }
+  .glass-card-hover:hover {
+    @apply border-[rgba(34,211,238,0.25)];
+    box-shadow: 0 4px 16px rgba(0,0,0,0.6), 0 0 0 1px rgba(34,211,238,0.15);
+  }
+
+  /* Stat card with subtle top gradient */
+  .stat-card {
+    @apply glass-card p-5 relative overflow-hidden;
+  }
+  .stat-card::before {
+    content: '';
+    @apply absolute top-0 left-0 right-0 h-[1px];
+    background: linear-gradient(90deg, transparent, rgba(34,211,238,0.4), transparent);
+  }
+
+  /* Badge variants */
+  .badge {
+    @apply inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium;
+  }
+  .badge-cyan    { @apply badge bg-accent-500/15 text-accent-300 border border-accent-500/20; }
+  .badge-red     { @apply badge bg-red-500/15 text-red-300 border border-red-500/20; }
+  .badge-yellow  { @apply badge bg-yellow-500/15 text-yellow-300 border border-yellow-500/20; }
+  .badge-green   { @apply badge bg-emerald-500/15 text-emerald-300 border border-emerald-500/20; }
+  .badge-gray    { @apply badge bg-slate-500/15 text-slate-300 border border-slate-500/20; }
+  .badge-blue    { @apply badge bg-blue-500/15 text-blue-300 border border-blue-500/20; }
+
+  /* Buttons */
+  .btn-primary {
+    @apply inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-accent-500 hover:bg-accent-400
+           text-white text-sm font-medium transition-all duration-150 active:scale-95;
+  }
+  .btn-secondary {
+    @apply inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-[rgba(34,211,238,0.20)]
+           bg-navy-700/50 hover:bg-navy-700 text-slate-300 hover:text-white text-sm font-medium
+           transition-all duration-150 active:scale-95;
+  }
+  .btn-danger {
+    @apply inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-red-600/20 hover:bg-red-600/40
+           border border-red-500/30 text-red-300 text-sm font-medium transition-all duration-150;
+  }
+  .btn-success {
+    @apply inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-emerald-600/20 hover:bg-emerald-600/40
+           border border-emerald-500/30 text-emerald-300 text-sm font-medium transition-all duration-150;
+  }
+  .btn-ghost {
+    @apply inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-slate-400 hover:text-slate-200
+           hover:bg-white/5 text-sm transition-all duration-150;
+  }
+
+  /* Input field */
+  .field-input {
+    @apply w-full bg-navy-900/80 border border-[rgba(34,211,238,0.15)] rounded-lg px-3 py-2
+           text-sm text-slate-200 placeholder-slate-500 focus:outline-none
+           focus:border-accent-500/50 focus:ring-1 focus:ring-accent-500/30 transition-colors;
+  }
+
+  /* Section header */
+  .section-header {
+    @apply flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-slate-500 mb-3;
+  }
+
+  /* Entity type pill colors */
+  .entity-person       { @apply badge-blue; }
+  .entity-vehicle      { @apply badge-yellow; }
+  .entity-phone        { @apply badge-green; }
+  .entity-account      { @apply badge bg-purple-500/15 text-purple-300 border-purple-500/20; }
+  .entity-location     { @apply badge-cyan; }
+  .entity-organization { @apply badge badge-gray; }
+
+  /* Confidence bar */
+  .confidence-track {
+    @apply w-full h-1.5 bg-navy-900 rounded-full overflow-hidden;
+  }
+  .confidence-fill {
+    @apply h-full rounded-full transition-all duration-1000 ease-out;
+    background: linear-gradient(90deg, #06b6d4, #3b82f6);
+  }
+
+  /* Pipeline step */
+  .pipeline-step {
+    @apply flex items-center gap-3 p-3 rounded-lg border transition-all duration-300;
+  }
+  .pipeline-step.pending  { @apply border-slate-700/50 bg-navy-900/50 text-slate-500; }
+  .pipeline-step.active   { @apply border-accent-500/40 bg-accent-500/5 text-accent-300; }
+  .pipeline-step.complete { @apply border-emerald-500/30 bg-emerald-500/5 text-emerald-300; }
+  .pipeline-step.error    { @apply border-red-500/30 bg-red-500/5 text-red-300; }
+
+  /* Navigation item */
+  .nav-item {
+    @apply flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium
+           text-slate-400 hover:text-slate-200 hover:bg-white/5 transition-all duration-150 cursor-pointer;
+  }
+  .nav-item.active {
+    @apply text-accent-300 bg-accent-500/10 border-l-2 border-accent-500 pl-[calc(0.75rem-2px)];
+  }
+
+  /* Anomaly pulse */
+  .anomaly-pulse {
+    @apply w-2.5 h-2.5 rounded-full bg-red-500;
+    box-shadow: 0 0 0 0 rgba(239,68,68,0.6);
+    animation: anomalyPulse 2s infinite;
+  }
+
+  /* Evidence chain connector */
+  .chain-connector {
+    @apply w-px h-8 mx-auto;
+    background: linear-gradient(to bottom, rgba(34,211,238,0.4), transparent);
+  }
+
+  /* Data grid background */
+  .grid-bg {
+    background-image: linear-gradient(rgba(34,211,238,0.03) 1px, transparent 1px),
+                      linear-gradient(90deg, rgba(34,211,238,0.03) 1px, transparent 1px);
+    background-size: 32px 32px;
+  }
+
+  /* Table */
+  .intel-table {
+    @apply w-full text-sm;
+  }
+  .intel-table th {
+    @apply text-left text-xs font-semibold uppercase tracking-wider text-slate-500 pb-2
+           border-b border-[rgba(34,211,238,0.08)];
+  }
+  .intel-table td {
+    @apply py-3 border-b border-[rgba(34,211,238,0.05)] text-slate-300;
+  }
+  .intel-table tr:hover td { @apply bg-white/[0.02]; }
+}
+
+/* ── Animations ─────────────────────────────────────────── */
+@keyframes anomalyPulse {
+  0%   { box-shadow: 0 0 0 0 rgba(239,68,68,0.6); }
+  70%  { box-shadow: 0 0 0 8px rgba(239,68,68,0); }
+  100% { box-shadow: 0 0 0 0 rgba(239,68,68,0); }
+}
+@keyframes countUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+.shimmer {
+  background: linear-gradient(90deg, #0d1526 25%, #162344 50%, #0d1526 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+/* React Flow overrides */
+.react-flow__background { background-color: #030712 !important; }
+.react-flow__controls button {
+  background: #0d1526 !important;
+  border-color: rgba(34,211,238,0.15) !important;
+  color: #94a3b8 !important;
+}
+.react-flow__controls button:hover { background: #111d35 !important; }
+.react-flow__minimap { background: #0a0f1e !important; border: 1px solid rgba(34,211,238,0.10) !important; border-radius: 8px !important; }

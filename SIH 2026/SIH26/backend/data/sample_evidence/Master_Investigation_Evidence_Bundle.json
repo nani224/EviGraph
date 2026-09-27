@@ -1,0 +1,193 @@
+{
+  "investigation_case": "FIR/CYB/2026/0492",
+  "case_title": "Cyber Hawala Extortion & Impersonation Syndicate",
+  "lead_investigator": "Inspector K. Prasad, Cyber Crime SIT",
+  "target_topology": {
+    "total_main_suspects": 2,
+    "suspect_profiles": [
+      {
+        "suspect_id": "SUSPECT-01",
+        "name": "Vikram Malhotra",
+        "role": "Mastermind & Kingpin",
+        "network_role": "High-Centrality Hub",
+        "connection_count": 11,
+        "phone": "+91-9876543210",
+        "account": "HDFC-8829103948",
+        "operating_vehicle": "TS 09 EA 2758 (Mahindra Scorpio Black)",
+        "cell_towers": [
+          "TWR-HYD-01",
+          "TWR-HYD-04"
+        ],
+        "direct_edges": [
+          {
+            "to": "Dr. Rajeshwar Rao",
+            "type": "VOICE_CALL",
+            "details": "Scam call 340s"
+          },
+          {
+            "to": "Suresh Babu",
+            "type": "VOICE_CALL",
+            "details": "Coordination calls 240s, 195s"
+          },
+          {
+            "to": "+91-9876543210",
+            "type": "OWNS_PHONE"
+          },
+          {
+            "to": "HDFC-8829103948",
+            "type": "OWNS_ACCOUNT"
+          },
+          {
+            "to": "TS 09 EA 2758",
+            "type": "OPERATES_VEHICLE"
+          },
+          {
+            "to": "TWR-HYD-01",
+            "type": "LOCATED_AT"
+          },
+          {
+            "to": "TWR-HYD-04",
+            "type": "LOCATED_AT"
+          },
+          {
+            "to": "CAM-01 Jubilee Hills",
+            "type": "OBSERVED_BY"
+          },
+          {
+            "to": "CAM-04 Jubilee Hills",
+            "type": "OBSERVED_BY"
+          },
+          {
+            "to": "FIR/CYB/2026/0492",
+            "type": "NAMED_ACCUSED"
+          }
+        ]
+      },
+      {
+        "suspect_id": "SUSPECT-02",
+        "name": "Suresh Babu",
+        "role": "Chief Financial Broker & Field Coordinator",
+        "network_role": "High-Centrality Hub",
+        "connection_count": 14,
+        "phone": "+91-9988776655",
+        "account": "AXIS-9920192837",
+        "operating_vehicles": [
+          "MH EE 2388 (Toyota Innova Crysta)",
+          "GA 05 F 0888 (Skoda Octavia)"
+        ],
+        "cell_towers": [
+          "TWR-HYD-09",
+          "TWR-HYD-16",
+          "TWR-HYD-22"
+        ],
+        "direct_edges": [
+          {
+            "to": "Vikram Malhotra",
+            "type": "COORDINATION_CALLS_AND_MEETUP"
+          },
+          {
+            "to": "Vikram Malhotra (HDFC-8829103948)",
+            "type": "NEFT_PAYOUT",
+            "amount": 125000
+          },
+          {
+            "to": "Apex Exports (ICICI-1102938475)",
+            "type": "IMPS_RECEIPT",
+            "amount": 420000
+          },
+          {
+            "to": "Ramesh Kumar (Courier-1)",
+            "type": "CASH_HANDOVER",
+            "amount": 125000
+          },
+          {
+            "to": "Rajesh Verma (Mule-2)",
+            "type": "UPI_COMMISSION",
+            "amount": 100000
+          },
+          {
+            "to": "+91-9988776655",
+            "type": "OWNS_PHONE"
+          },
+          {
+            "to": "AXIS-9920192837",
+            "type": "OWNS_ACCOUNT"
+          },
+          {
+            "to": "MH EE 2388",
+            "type": "OWNS_VEHICLE"
+          },
+          {
+            "to": "GA 05 F 0888",
+            "type": "OWNS_VEHICLE"
+          },
+          {
+            "to": "TWR-HYD-09",
+            "type": "LOCATED_AT"
+          },
+          {
+            "to": "TWR-HYD-16",
+            "type": "LOCATED_AT"
+          },
+          {
+            "to": "CAM-17 Madhapur",
+            "type": "OBSERVED_BY"
+          },
+          {
+            "to": "CAM-22 Gachibowli",
+            "type": "OBSERVED_BY"
+          },
+          {
+            "to": "Axis Bank ATM Madhapur",
+            "type": "CASH_TRANSACTION"
+          }
+        ]
+      }
+    ],
+    "peripheral_low_connection_nodes": [
+      {
+        "name": "Dr. Rajeshwar Rao",
+        "type": "Victim / Complainant",
+        "connections": 2
+      },
+      {
+        "name": "Apex Exports Escrow",
+        "type": "Shell Transit Account",
+        "connections": 2
+      },
+      {
+        "name": "Ramesh Kumar",
+        "type": "Field Cash Courier",
+        "connections": 2
+      },
+      {
+        "name": "Rajesh Verma",
+        "type": "Secondary Mule Account",
+        "connections": 2
+      },
+      {
+        "name": "Pooja Hegde",
+        "type": "Legitimate Plate Owner (Victim of cloning)",
+        "connections": 1
+      }
+    ]
+  },
+  "forensic_correlations": [
+    {
+      "domain": "Financial to Telecom",
+      "match": "TXN-901 occurs within 20m of CDR-1001 scam call."
+    },
+    {
+      "domain": "Telecom to ANPR",
+      "match": "Suresh Babu phone connects to TWR-HYD-16 at 12:10; Innova MH EE 2388 captured parked at CAM-17 Madhapur at 12:05-12:12."
+    },
+    {
+      "domain": "ANPR to VAHAN RTO",
+      "match": "Black Scorpio TS 09 EA 2758 flagged as White Sedan registered to Pooja Hegde (STOLEN/CLONED)."
+    },
+    {
+      "domain": "ANPR to CCTV Surveillance",
+      "match": "Facial recognition of Suresh Babu (0.94) and Ramesh Kumar (0.91) confirms physical envelope exchange at Madhapur Metro."
+    }
+  ]
+}

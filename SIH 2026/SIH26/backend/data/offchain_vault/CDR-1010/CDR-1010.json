@@ -1,0 +1,1 @@
+{"call_type":"voice_call","case_id":"case-7642","confidence":0.98,"duration_sec":60,"from_phone":"+91-9988776655","id":"CDR-1010","source_file":"1_telecom_cdr_records.csv","timestamp":"2026-08-30T18:30:00+05:30","to_phone":"+91-9123456789","tower_from":"TWR-HYD-16","tower_to":"TWR-HYD-16"}

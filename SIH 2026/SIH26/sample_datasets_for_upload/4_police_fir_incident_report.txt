@@ -1,0 +1,48 @@
+================================================================================
+FIRST INFORMATION REPORT (Under Section 154 Cr.P.C.)
+TELANGANA STATE CYBER CRIME POLICE STATION, HYDERABAD COMMISSIONERATE
+================================================================================
+1. FIR No: FIR/CYB/2026/0492
+2. Date & Time of Report: 30-Aug-2026 19:15 IST
+3. Police Station: Cyber Crime Police Station, CID Headquarters, Hyderabad
+4. Acts & Sections:
+   - Section 420 IPC (Cheating and dishonestly inducing delivery of property)
+   - Section 120B IPC (Criminal Conspiracy)
+   - Section 406 IPC (Criminal Breach of Trust)
+   - Section 66D Information Technology Act, 2008 (Cheating by personation using computer resource)
+
+5. COMPLAINANT PARTICULARS:
+   - Name: Dr. Rajeshwar Rao, Aged 58 years, S/o Late K. V. Rao
+   - Address: Flat 402, Sai Vihar Apts, Road No. 12, Banjara Hills, Hyderabad
+   - Contact Mobile: +91-9811002233
+   - Primary Bank Account Debited: HDFC Bank A/c No. 9911002233
+
+6. DETAILS OF ACCUSED / SUSPECT SYNDICATE:
+   [1] PRIMARY MASTERMIND / KINGPIN:
+       - Name: Vikram Malhotra (Alias: Vicky Bhai, The Director)
+       - Contact Phone: +91-9876543210 (Operating under towers TWR-HYD-01, TWR-HYD-04)
+       - Operating Vehicle: Mahindra Scorpio (Black), displaying registration plate TS 09 EA 2758
+       - Role: Conceived the fraudulent consultancy contract scheme, impersonated investment escrow officer, directed payment disbursement.
+
+   [2] CHIEF FINANCIAL BROKER & FIELD COORDINATOR:
+       - Name: Suresh Babu (Alias: Broker Suresh)
+       - Contact Phone: +91-9988776655 (Operating under towers TWR-HYD-09, TWR-HYD-16)
+       - Primary Operating Account: Axis Bank A/c No. 9920192837
+       - Registered Vehicle: Toyota Innova Crysta (White), Reg No. MH EE 2388
+       - Secondary Vehicle: Skoda Octavia (Silver), Reg No. GA 05 F 0888
+       - Role: Managed Hawala mule accounts, layered funds through Apex Exports shell entity, coordinated physical cash withdrawals and delivery via field couriers.
+
+   [3] CORPORATE SHELL ENTITY:
+       - Entity Name: Apex Exports & Logistics Private Limited
+       - Registered Current Account: ICICI Bank A/c No. 1102938475
+       - Status: Non-operational paper company used as first-tier laundering gateway.
+
+7. BRIEF FACTS OF THE OFFENCE:
+   The complainant Dr. Rajeshwar Rao was contacted by accused Vikram Malhotra (+91-9876543210) who falsely represented himself as an international procurement escrow officer. Believing the misrepresentation, the complainant transferred Rs. 4,50,000/- via RTGS from his HDFC account into ICICI Account No. 1102938475 belonging to Apex Exports. Within 20 minutes of credit, the entire amount was transferred to Axis Bank Account No. 9920192837 held by Suresh Babu.
+   Accused Suresh Babu promptly dispersed the proceeds: Rs. 1,25,000/- withdrawn in cash at Madhapur Metro ATM and handed over to courier Ramesh Kumar (+91-9123456789), Rs. 1,00,000/- transferred to mule account of Rajesh Verma (+91-9700112233), and Rs. 1,25,000/- remitted directly to Vikram Malhotra's HDFC Account No. 8829103948 as royalty.
+   During surveillance, accused Vikram Malhotra was sighted driving Mahindra Scorpio TS 09 EA 2758. VAHAN National Registry checks indicate TS 09 EA 2758 actually belongs to a White Honda City registered to one Pooja Hegde and reported stolen/suspended, confirming a forged/cloned number plate violation.
+
+8. INVESTIGATING OFFICER:
+   - Inspector K. Prasad, Cyber Crime Special Investigation Team, Hyderabad
+   - Signature: [K. Prasad, Inspector of Police, SIT]
+================================================================================

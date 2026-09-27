@@ -1,0 +1,19 @@
+{
+  "camera_id": "MANUAL_FIELD_ENTRY",
+  "camera_name": "Field Team Delta",
+  "case_id": null,
+  "detection_confidence": 1.0,
+  "id": "obs-manual-2465",
+  "input_source": "investigator",
+  "location_lat": 17.4319,
+  "location_lon": 78.4073,
+  "location_name": "Jubilee Hills Checkpost",
+  "notes": "Subject observed entering white sedan with black briefcase.",
+  "object_type": "PERSON",
+  "source": "investigator_entered",
+  "source_date": "2026-08-25",
+  "source_time": "18:45",
+  "source_type": "investigator_entered",
+  "timestamp": "2026-08-25T18:45",
+  "tracking_id": "MANUAL_p-001"
+}

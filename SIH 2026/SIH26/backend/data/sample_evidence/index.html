@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EviGraph - Downloadable Evidence Files</title>
+  <style>
+    :root {
+      --bg: #090d16;
+      --card-bg: rgba(18, 26, 44, 0.85);
+      --border: #1e293b;
+      --primary: #3b82f6;
+      --accent: #06b6d4;
+      --warning: #f59e0b;
+      --danger: #ef4444;
+      --success: #10b981;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      background: radial-gradient(circle at 50% 0%, #172554 0%, #090d16 60%);
+      color: var(--text);
+      min-height: 100vh;
+      padding: 40px 20px;
+    }
+    .container { max-width: 1100px; margin: 0 auto; }
+    .header { text-align: center; margin-bottom: 40px; }
+    .badge {
+      display: inline-block;
+      padding: 6px 14px;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      background: rgba(59, 130, 246, 0.15);
+      color: #60a5fa;
+      border: 1px solid rgba(59, 130, 246, 0.3);
+      margin-bottom: 16px;
+    }
+    h1 { font-size: 2.2rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 12px; }
+    .subtitle { color: var(--text-muted); font-size: 1.05rem; max-width: 700px; margin: 0 auto 24px; line-height: 1.6; }
+    
+    .target-banner {
+      background: linear-gradient(135deg, rgba(239, 68, 68, 0.1) 0%, rgba(245, 158, 11, 0.1) 100%);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .banner-title { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 1.15rem; color: #fca5a5; }
+    .targets-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px; }
+    .target-box {
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      padding: 16px;
+    }
+    .target-name { font-weight: 700; font-size: 1.05rem; color: #fff; margin-bottom: 4px; display: flex; justify-content: space-between; }
+    .target-tag { font-size: 0.7rem; padding: 2px 8px; border-radius: 6px; background: #dc2626; color: #fff; font-weight: 700; }
+    .target-role { color: var(--warning); font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; }
+    .target-details { font-family: monospace; font-size: 0.8rem; color: #cbd5e1; line-height: 1.6; }
+
+    .bundle-action {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    .btn-zip {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: linear-gradient(135deg, #2563eb, #0284c7);
+      color: #fff;
+      font-weight: 700;
+      font-size: 1.1rem;
+      padding: 16px 36px;
+      border-radius: 14px;
+      text-decoration: none;
+      box-shadow: 0 10px 25px -5px rgba(37, 99, 235, 0.4);
+      transition: all 0.2s ease;
+      border: none;
+      cursor: pointer;
+    }
+    .btn-zip:hover { transform: translateY(-2px); box-shadow: 0 15px 30px -5px rgba(37, 99, 235, 0.6); }
+
+    .cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 20px; }
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      backdrop-filter: blur(12px);
+      transition: all 0.2s ease;
+    }
+    .card:hover { border-color: rgba(59, 130, 246, 0.4); transform: translateY(-3px); }
+    .card-top { margin-bottom: 16px; }
+    .card-badge {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 6px;
+      background: #1e293b;
+      color: #38bdf8;
+      margin-bottom: 10px;
+      border: 1px solid rgba(56, 189, 248, 0.2);
+    }
+    .card-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 8px; color: #fff; }
+    .card-desc { font-size: 0.85rem; color: var(--text-muted); line-height: 1.5; margin-bottom: 12px; }
+    .card-entities {
+      font-size: 0.75rem;
+      background: rgba(15, 23, 42, 0.6);
+      padding: 8px 10px;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      color: #94a3b8;
+      margin-bottom: 16px;
+    }
+    .card-entities strong { color: #cbd5e1; }
+    .btn-download {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: rgba(30, 41, 59, 0.8);
+      color: #60a5fa;
+      border: 1px solid rgba(59, 130, 246, 0.3);
+      padding: 10px 16px;
+      border-radius: 10px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.15s ease;
+    }
+    .btn-download:hover { background: #2563eb; color: #fff; border-color: #2563eb; }
+    .footer { text-align: center; margin-top: 50px; color: var(--text-muted); font-size: 0.85rem; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <span class="badge">Forensic Ready Data</span>
+      <h1>EviGraph Correlated Evidence Suite</h1>
+      <p class="subtitle">
+        Download evidence files directly to your computer. All files cross-correlate across CDR, Bank Hawala, ANPR, FIR, and VAHAN RTO records with high-centrality hubs.
+      </p>
+    </div>
+
+    <!-- Target Suspect Topology Banner -->
+    <div class="target-banner">
+      <div class="banner-title">
+        <span>🎯 Target Entity Architecture (2 High-Connection Hub Suspects)</span>
+      </div>
+      <div class="targets-grid">
+        <div class="target-box">
+          <div class="target-name">
+            <span>Vikram Malhotra</span>
+            <span class="target-tag">HUB (11+ EDGES)</span>
+          </div>
+          <div class="target-role">Mastermind / Syndicate Kingpin</div>
+          <div class="target-details">
+            • Phone: +91-9876543210 (Jubilee Hills)<br>
+            • Vehicle: TS 09 EA 2758 (Black Scorpio - CLONED)<br>
+            • Account: HDFC-8829103948 (Royalty Payout)<br>
+            • Incident: Target in FIR Cr. No. 0492/2026
+          </div>
+        </div>
+        <div class="target-box">
+          <div class="target-name">
+            <span>Suresh Babu</span>
+            <span class="target-tag">HUB (14+ EDGES)</span>
+          </div>
+          <div class="target-role">Chief Hawala Broker & Field Coordinator</div>
+          <div class="target-details">
+            • Phone: +91-9988776655 (Madhapur / Cyber Towers)<br>
+            • Vehicles: MH EE 2388 (Innova), GA 05 F 0888<br>
+            • Account: AXIS-9920192837 (Central Funnel)<br>
+            • Operations: Coordinates ATM cashout & mules
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Single ZIP Download CTA -->
+    <div class="bundle-action">
+      <a href="Investigation_Evidence_Bundle.zip" download="Investigation_Evidence_Bundle.zip" class="btn-zip">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Download Full Evidence Bundle (.ZIP)
+      </a>
+    </div>
+
+    <!-- Individual Evidence Cards Grid -->
+    <div class="cards-grid">
+      <!-- 1. CDR -->
+      <div class="card">
+        <div class="card-top">
+          <span class="card-badge">CSV • TELECOM</span>
+          <h3 class="card-title">1. Telecom CDR Call Logs</h3>
+          <p class="card-desc">Synchronized call detail records connecting Vikram Malhotra and Suresh Babu to victim Dr. Rao and couriers.</p>
+          <div class="card-entities">
+            <strong>Key Nodes:</strong> +91-9876543210, +91-9988776655, Dr. Rao, TWR-HYD-01, TWR-HYD-04
+          </div>
+        </div>
+        <a href="1_telecom_cdr_records.csv" download="1_telecom_cdr_records.csv" class="btn-download">
+          Download 1_telecom_cdr_records.csv
+        </a>
+      </div>
+
+      <!-- 2. Financial Ledger -->
+      <div class="card">
+        <div class="card-top">
+          <span class="card-badge">CSV • BANKING</span>
+          <h3 class="card-title">2. Bank & Hawala Ledger</h3>
+          <p class="card-desc">Multi-tier financial money trail tracing ₹4.5L from Victim Escrow to Suresh Babu, Courier Cashout, and Vikram's royalty.</p>
+          <div class="card-entities">
+            <strong>Key Nodes:</strong> ICICI-1102938475, AXIS-9920192837, HDFC-8829103948, ATM-Madhapur
+          </div>
+        </div>
+        <a href="2_bank_financial_ledger.csv" download="2_bank_financial_ledger.csv" class="btn-download">
+          Download 2_bank_financial_ledger.csv
+        </a>
+      </div>
+
+      <!-- 3. ANPR Camera -->
+      <div class="card">
+        <div class="card-top">
+          <span class="card-badge">CSV • ANPR & TRAFFIC</span>
+          <h3 class="card-title">3. Vehicle ANPR Camera Feed</h3>
+          <p class="card-desc">ANPR plate readings for Black Scorpio TS 09 EA 2758 and White Innova MH EE 2388 across Jubilee Hills and Madhapur.</p>
+          <div class="card-entities">
+            <strong>Key Nodes:</strong> TS 09 EA 2758, MH EE 2388, CAM-01, CAM-04, CAM-17
+          </div>
+        </div>
+        <a href="3_cctv_anpr_camera_feed.csv" download="3_cctv_anpr_camera_feed.csv" class="btn-download">
+          Download 3_cctv_anpr_camera_feed.csv
+        </a>
+      </div>
+
+      <!-- 4. Police FIR -->
+      <div class="card">
+        <div class="card-top">
+          <span class="card-badge">TXT • POLICE FIR</span>
+          <h3 class="card-title">4. Police FIR Incident Report</h3>
+          <p class="card-desc">Section 154 Cr.P.C. FIR FIR/CYB/2026/0492 under IPC 420, 120B, 406 & Sec 66D IT Act naming Vikram Malhotra and Suresh Babu.</p>
+          <div class="card-entities">
+            <strong>Key Nodes:</strong> FIR/CYB/2026/0492, Dr. Rajeshwar Rao, Apex Exports, Inspector K. Prasad
+          </div>
+        </div>
+        <a href="4_police_fir_incident_report.txt" download="4_police_fir_incident_report.txt" class="btn-download">
+          Download 4_police_fir_incident_report.txt
+        </a>
+      </div>
+
+      <!-- 5. Vahan RTO Registry -->
+      <div class="card">
+        <div class="card-top">
+          <span class="card-badge">CSV • VAHAN RTO</span>
+          <h3 class="card-title">5. National Vahan RTO Registry</h3>
+          <p class="card-desc">Statutory RTO vehicle database showing stolen/suspended flag on TS 09 EA 2758 and verified ownership for MH EE 2388.</p>
+          <div class="card-entities">
+            <strong>Key Nodes:</strong> TS 09 EA 2758 (Stolen White Sedan vs Black SUV), MH EE 2388
+          </div>
+        </div>
+        <a href="5_vahan_rto_vehicle_registry.csv" download="5_vahan_rto_vehicle_registry.csv" class="btn-download">
+          Download 5_vahan_rto_vehicle_registry.csv
+        </a>
+      </div>
+
+      <!-- 6. CCTV Facial Surveillance -->
+      <div class="card">
+        <div class="card-top">
+          <span class="card-badge">CSV • SURVEILLANCE</span>
+          <h3 class="card-title">6. CCTV Facial Surveillance</h3>
+          <p class="card-desc">Physical surveillance sightings and ATM cash withdrawal observations confirming rendezvous at Madhapur Metro.</p>
+          <div class="card-entities">
+            <strong>Key Nodes:</strong> SURV-301 to 305, Axis Bank ATM Madhapur, Ramesh Kumar
+          </div>
+        </div>
+        <a href="6_cctv_facial_surveillance.csv" download="6_cctv_facial_surveillance.csv" class="btn-download">
+          Download 6_cctv_facial_surveillance.csv
+        </a>
+      </div>
+
+      <!-- 7. Master Bundle JSON -->
+      <div class="card">
+        <div class="card-top">
+          <span class="card-badge">JSON • UNIFIED DOSSIER</span>
+          <h3 class="card-title">7. Master Dossier Bundle</h3>
+          <p class="card-desc">Structured JSON dossier containing full forensic target topology, node degree metrics, and cross-domain correlation rules.</p>
+          <div class="card-entities">
+            <strong>Key Nodes:</strong> 2 Main Suspects (High Degree), 5 Leaf Nodes (Low Degree)
+          </div>
+        </div>
+        <a href="Master_Investigation_Evidence_Bundle.json" download="Master_Investigation_Evidence_Bundle.json" class="btn-download">
+          Download Master_Investigation_Evidence_Bundle.json
+        </a>
+      </div>
+    </div>
+
+    <div class="footer">
+      EviGraph Multi-Source Forensic Intelligence Platform • Correlated Evidence Inputs
+    </div>
+  </div>
+</body>
+</html>

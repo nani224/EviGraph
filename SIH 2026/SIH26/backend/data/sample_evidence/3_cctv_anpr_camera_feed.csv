@@ -1,0 +1,8 @@
+capture_id,timestamp,camera_id,location_name,plate_number,vehicle_make_model,vehicle_color,lane,speed_kmh,flag_status
+ANPR-801,2026-08-30T09:30:15+05:30,CAM-01,Jubilee Hills Road No 36,TS 09 EA 2758,Mahindra Scorpio,Black,Lane 1,48,FLAGGED_CLONED_SUSPECT
+ANPR-802,2026-08-30T10:10:45+05:30,CAM-04,Jubilee Hills Checkpost,TS 09 EA 2758,Mahindra Scorpio,Black,Lane 2,52,FLAGGED_CLONED_SUSPECT
+ANPR-803,2026-08-30T11:35:10+05:30,CAM-17,Madhapur Metro Pillar 12,MH EE 2388,Toyota Innova Crysta,White,Lane 1,35,MATCHED_ASSOCIATE
+ANPR-804,2026-08-30T12:05:00+05:30,CAM-17,Madhapur Metro Pillar 12,MH EE 2388,Toyota Innova Crysta,White,Lane 1,0,PARKED_RENDEZVOUS
+ANPR-805,2026-08-30T14:05:30+05:30,CAM-04,Jubilee Hills Checkpost,TS 09 EA 2758,Mahindra Scorpio,Black,Lane 3,60,FLAGGED_CLONED_SUSPECT
+ANPR-806,2026-08-30T16:15:00+05:30,CAM-22,Gachibowli ORR Junction,MH EE 2388,Toyota Innova Crysta,White,Lane 2,75,MATCHED_ASSOCIATE
+ANPR-807,2026-08-30T16:40:20+05:30,CAM-22,Gachibowli ORR Junction,GA 05 F 0888,Skoda Octavia,Silver,Lane 1,68,ASSOCIATE_SECONDARY

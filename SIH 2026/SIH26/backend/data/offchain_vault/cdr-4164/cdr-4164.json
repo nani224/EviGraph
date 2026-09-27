@@ -1,0 +1,13 @@
+{
+  "call_type": "voice",
+  "case_id": null,
+  "confidence": 0.96,
+  "duration_sec": 372,
+  "from_phone": "+91-9833554528",
+  "id": "cdr-4164",
+  "source_file": "seized_phone_dump_091.json",
+  "timestamp": "2026-09-27T02:38:20.967841",
+  "to_phone": "+91-9792000924",
+  "tower_from": "loc-09",
+  "tower_to": "loc-01"
+}

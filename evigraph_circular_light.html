@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>EviGraph Circular Connected Architecture - Slide 2 Light Theme</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Outfit:wght@600;700;800;900&family=JetBrains+Mono:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: transparent;
+    font-family: 'Inter', sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2400px;
+    height: 1800px;
+    overflow: hidden;
+  }
+  .canvas-container {
+    width: 2400px;
+    height: 1800px;
+    position: relative;
+    background: #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .grid-bg {
+    position: absolute;
+    inset: 0;
+    background-image: 
+      radial-gradient(circle at 1px 1px, rgba(30, 58, 138, 0.08) 1.5px, transparent 0),
+      linear-gradient(to right, rgba(30, 58, 138, 0.03) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(30, 58, 138, 0.03) 1px, transparent 1px);
+    background-size: 36px 36px, 72px 72px, 72px 72px;
+    pointer-events: none;
+  }
+  svg {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+</style>
+</head>
+<body>
+<div class="canvas-container">
+  <div class="grid-bg"></div>
+
+  <svg viewBox="0 0 2400 1800" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <!-- Shadows -->
+      <filter id="card-shadow-light" x="-20%" y="-20%" width="140%" height="140%">
+        <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#0F172A" flood-opacity="0.10"/>
+      </filter>
+      <filter id="core-shadow-light" x="-30%" y="-30%" width="160%" height="160%">
+        <feDropShadow dx="0" dy="18" stdDeviation="24" flood-color="#1E3A8A" flood-opacity="0.25"/>
+      </filter>
+
+      <!-- Central Gradients -->
+      <linearGradient id="grad-core-light" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#1E3A8A" />
+        <stop offset="60%" stop-color="#0F172A" />
+        <stop offset="100%" stop-color="#020617" />
+      </linearGradient>
+
+      <!-- Category Border / Pill Gradients -->
+      <linearGradient id="lgrad-cctv" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#0284C7" /><stop offset="100%" stop-color="#0369A1" />
+      </linearGradient>
+      <linearGradient id="lgrad-telecom" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#059669" /><stop offset="100%" stop-color="#047857" />
+      </linearGradient>
+      <linearGradient id="lgrad-banking" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#D97706" /><stop offset="100%" stop-color="#B45309" />
+      </linearGradient>
+      <linearGradient id="lgrad-fir" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#7C3AED" /><stop offset="100%" stop-color="#6D28D9" />
+      </linearGradient>
+      <linearGradient id="lgrad-gps" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#2563EB" /><stop offset="100%" stop-color="#1D4ED8" />
+      </linearGradient>
+      <linearGradient id="lgrad-rto" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#E11D48" /><stop offset="100%" stop-color="#BE123C" />
+      </linearGradient>
+
+      <!-- Light Card Background -->
+      <linearGradient id="card-bg-light" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#FFFFFF" />
+        <stop offset="100%" stop-color="#F8FAFC" />
+      </linearGradient>
+
+      <!-- Arrow Markers -->
+      <marker id="larrow-blue" viewBox="0 0 12 12" refX="8" refY="6" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+        <path d="M 1 2 L 10 6 L 1 10 z" fill="#2563EB" />
+      </marker>
+      <marker id="larrow-red" viewBox="0 0 12 12" refX="8" refY="6" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+        <path d="M 1 2 L 10 6 L 1 10 z" fill="#E11D48" />
+      </marker>
+      <marker id="larrow-green" viewBox="0 0 12 12" refX="8" refY="6" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+        <path d="M 1 2 L 10 6 L 1 10 z" fill="#059669" />
+      </marker>
+    </defs>
+
+    <!-- ==================== HEADER TITLE ==================== -->
+    <g transform="translate(1200, 105)">
+      <rect x="-380" y="-36" width="760" height="72" rx="36" fill="#EFF6FF" stroke="#3B82F6" stroke-width="2"/>
+      <text y="9" text-anchor="middle" font-family="'Outfit', sans-serif" font-weight="900" font-size="34" fill="#1E3A8A" letter-spacing="1.5">
+        EviGraph: MULTI-SOURCE INTELLIGENCE FUSION
+      </text>
+      <text y="68" text-anchor="middle" font-family="'Inter', sans-serif" font-weight="700" font-size="20" fill="#475569" letter-spacing="0.5">
+        Heterogeneous Forensic Feeds Unified into an Evidence-Backed Knowledge Graph
+      </text>
+    </g>
+
+    <!-- ==================== BACKGROUND ORBITS ==================== -->
+    <!-- Center: (1200, 960) -->
+    <circle cx="1200" cy="960" r="640" fill="none" stroke="#CBD5E1" stroke-width="2.5" stroke-dasharray="10 8"/>
+    <circle cx="1200" cy="960" r="470" fill="none" stroke="#94A3B8" stroke-width="2" />
+    <circle cx="1200" cy="960" r="325" fill="none" stroke="#3B82F6" stroke-width="2.5" stroke-dasharray="8 6" opacity="0.6"/>
+
+    <!-- Orbit decorative crosshairs -->
+    <g transform="translate(1200, 960)" stroke="#94A3B8" stroke-width="2">
+      <line x1="0" y1="-480" x2="0" y2="-460" />
+      <line x1="480" y1="0" x2="460" y2="0" />
+      <line x1="0" y1="480" x2="0" y2="460" />
+      <line x1="-480" y1="0" x2="-460" y2="0" />
+    </g>
+
+    <!-- ==================== CROSS-SOURCE CORRELATION ARCS ==================== -->
+    <!-- CCTV (Top) <-> RTO (Top-Left) -->
+    <path d="M 1020 390 Q 760 430 740 560" fill="none" stroke="#E11D48" stroke-width="3.5" stroke-dasharray="8 6" marker-end="url(#larrow-red)"/>
+    <g transform="translate(860, 440)">
+      <rect x="-135" y="-18" width="270" height="36" rx="18" fill="#FFF1F2" stroke="#E11D48" stroke-width="2" />
+      <text y="5" text-anchor="middle" font-family="'Inter', sans-serif" font-weight="800" font-size="13" fill="#BE123C">
+        ⚠️ Contradiction: Plate Mismatch
+      </text>
+    </g>
+
+    <!-- Telecom (Top-Right) <-> Banking (Bottom-Right) -->
+    <path d="M 1830 760 Q 1930 960 1830 1160" fill="none" stroke="#059669" stroke-width="3.5" stroke-dasharray="8 6" marker-end="url(#larrow-green)"/>
+    <g transform="translate(1940, 960)">
+      <rect x="-130" y="-18" width="260" height="36" rx="18" fill="#ECFDF5" stroke="#059669" stroke-width="2" />
+      <text y="5" text-anchor="middle" font-family="'Inter', sans-serif" font-weight="800" font-size="13" fill="#047857">
+        🔗 Mule Account &amp; SIM Link
+      </text>
+    </g>
+
+    <!-- GPS (Bottom-Left) <-> FIR (Bottom) -->
+    <path d="M 760 1350 Q 940 1530 1050 1550" fill="none" stroke="#2563EB" stroke-width="3.5" stroke-dasharray="8 6" marker-end="url(#larrow-blue)"/>
+    <g transform="translate(880, 1485)">
+      <rect x="-135" y="-18" width="270" height="36" rx="18" fill="#EFF6FF" stroke="#2563EB" stroke-width="2" />
+      <text y="5" text-anchor="middle" font-family="'Inter', sans-serif" font-weight="800" font-size="13" fill="#1D4ED8">
+        📍 Crime Scene Dwell Match
+      </text>
+    </g>
+
+    <!-- ==================== RADIAL FLOW LINES TO CORE ==================== -->
+    <g stroke-linecap="round">
+      <line x1="1200" y1="460" x2="1200" y2="730" stroke="#0284C7" stroke-width="4.5" stroke-dasharray="10 6"/>
+      <circle cx="1200" cy="590" r="7" fill="#0284C7" />
+
+      <line x1="1620" y1="720" x2="1395" y2="850" stroke="#059669" stroke-width="4.5" stroke-dasharray="10 6"/>
+      <circle cx="1510" cy="785" r="7" fill="#059669" />
+
+      <line x1="1620" y1="1200" x2="1395" y2="1070" stroke="#D97706" stroke-width="4.5" stroke-dasharray="10 6"/>
+      <circle cx="1510" cy="1135" r="7" fill="#D97706" />
+
+      <line x1="1200" y1="1460" x2="1200" y2="1190" stroke="#7C3AED" stroke-width="4.5" stroke-dasharray="10 6"/>
+      <circle cx="1200" cy="1330" r="7" fill="#7C3AED" />
+
+      <line x1="780" y1="1200" x2="1005" y2="1070" stroke="#2563EB" stroke-width="4.5" stroke-dasharray="10 6"/>
+      <circle cx="890" cy="1135" r="7" fill="#2563EB" />
+
+      <line x1="780" y1="720" x2="1005" y2="850" stroke="#E11D48" stroke-width="4.5" stroke-dasharray="10 6"/>
+      <circle cx="890" cy="785" r="7" fill="#E11D48" />
+    </g>
+
+    <!-- ==================== CENTRAL HUB: EVIGRAPH CORE ==================== -->
+    <g transform="translate(1200, 960)" filter="url(#core-shadow-light)">
+      <!-- Outer Accent Border -->
+      <circle cx="0" cy="0" r="235" fill="none" stroke="#93C5FD" stroke-width="8" stroke-dasharray="16 12"/>
+      <circle cx="0" cy="0" r="215" fill="none" stroke="#2563EB" stroke-width="4" />
+      <!-- Solid Core Gradient -->
+      <circle cx="0" cy="0" r="195" fill="url(#grad-core-light)" stroke="#60A5FA" stroke-width="3.5" />
+
+      <!-- Inner Graph Links -->
+      <g opacity="0.3">
+        <line x1="-80" y1="-40" x2="0" y2="-90" stroke="#FFFFFF" stroke-width="2"/>
+        <line x1="80" y1="-40" x2="0" y2="-90" stroke="#FFFFFF" stroke-width="2"/>
+        <line x1="-80" y1="-40" x2="-60" y2="50" stroke="#FFFFFF" stroke-width="2"/>
+        <line x1="80" y1="-40" x2="60" y2="50" stroke="#FFFFFF" stroke-width="2"/>
+        <line x1="-60" y1="50" x2="0" y2="80" stroke="#FFFFFF" stroke-width="2"/>
+        <line x1="60" y1="50" x2="0" y2="80" stroke="#FFFFFF" stroke-width="2"/>
+        <circle cx="0" cy="-90" r="6" fill="#60A5FA"/>
+        <circle cx="-80" cy="-40" r="6" fill="#38BDF8"/>
+        <circle cx="80" cy="-40" r="6" fill="#38BDF8"/>
+        <circle cx="-60" cy="50" r="6" fill="#818CF8"/>
+        <circle cx="60" cy="50" r="6" fill="#818CF8"/>
+        <circle cx="0" cy="80" r="6" fill="#60A5FA"/>
+      </g>
+
+      <!-- Center Logo & Branding -->
+      <g transform="translate(0, -95)">
+        <polygon points="0,-26 22,-12 22,14 0,26 -22,14 -22,-12" fill="#2563EB" stroke="#93C5FD" stroke-width="2.5"/>
+        <path d="M -8 -2 L -2 6 L 10 -6" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+      </g>
+
+      <text y="-32" text-anchor="middle" font-family="'Outfit', sans-serif" font-weight="900" font-size="44" fill="#FFFFFF" letter-spacing="1">
+        EviGraph
+      </text>
+      <text y="-5" text-anchor="middle" font-family="'Inter', sans-serif" font-weight="800" font-size="17" fill="#38BDF8" letter-spacing="2">
+        CRIMINAL KNOWLEDGE GRAPH
+      </text>
+      <text y="18" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-weight="700" font-size="13" fill="#94A3B8">
+        [NEURO-SYMBOLIC CORE]
+      </text>
+
+      <line x1="-120" y1="36" x2="120" y2="36" stroke="rgba(255, 255, 255, 0.25)" stroke-width="1.5"/>
+
+      <!-- Center Badges -->
+      <g transform="translate(0, 62)">
+        <rect x="-140" y="-14" width="280" height="26" rx="13" fill="#0F172A" stroke="#3B82F6" stroke-width="1.2"/>
+        <text y="4" text-anchor="middle" font-family="'Inter', sans-serif" font-weight="700" font-size="13" fill="#FFFFFF">
+          ⚡ Multi-Hop Traversal &lt;100ms
+        </text>
+      </g>
+      <g transform="translate(0, 96)">
+        <rect x="-140" y="-14" width="280" height="26" rx="13" fill="#0F172A" stroke="#10B981" stroke-width="1.2"/>
+        <text y="4" text-anchor="middle" font-family="'Inter', sans-serif" font-weight="700" font-size="13" fill="#FFFFFF">
+          🛡️ Sec 65B Tamper-Proof Audit
+        </text>
+      </g>
+      <g transform="translate(0, 130)">
+        <rect x="-140" y="-14" width="280" height="26" rx="13" fill="#0F172A" stroke="#8B5CF6" stroke-width="1.2"/>
+        <text y="4" text-anchor="middle" font-family="'Inter', sans-serif" font-weight="700" font-size="13" fill="#FFFFFF">
+          🔍 Automated Entity Disambiguation
+        </text>
+      </g>
+    </g>
+
+    <!-- ==================== 6 SATELLITE CARDS (LIGHT THEME) ==================== -->
+
+    <!-- 1. TOP (12:00): CCTV & ANPR VISION -->
+    <g transform="translate(1200, 325)" filter="url(#card-shadow-light)">
+      <rect x="-240" y="-105" width="480" height="210" rx="22" fill="url(#card-bg-light)" stroke="#0284C7" stroke-width="3"/>
+      <path d="M -240 -83 Q -240 -105 -218 -105 L 218 -105 Q 240 -105 240 -83 L 240 -76 L -240 -76 Z" fill="url(#lgrad-cctv)"/>
+      
+      <g transform="translate(-200, -42)">
+        <circle cx="24" cy="24" r="24" fill="#E0F2FE" stroke="#0284C7" stroke-width="2"/>
+        <text x="24" y="32" text-anchor="middle" font-size="24">📹</text>
+      </g>
+      <text x="-135" y="-28" font-family="'Outfit', sans-serif" font-weight="800" font-size="25" fill="#0F172A">
+        CCTV &amp; ANPR Vision
+      </text>
+      <rect x="-135" y="-14" width="165" height="22" rx="11" fill="#E0F2FE" stroke="#0284C7" stroke-width="1.2"/>
+      <text x="-52" y="2" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-weight="700" font-size="12" fill="#0369A1">
+        YOLOv8 + EasyOCR
+      </text>
+
+      <g transform="translate(-205, 38)">
+        <text y="0" font-family="'Inter', sans-serif" font-weight="600" font-size="15" fill="#1E293B">
+          • Real-time plate parsing (36 State codes &amp; BH series)
+        </text>
+        <text y="24" font-family="'Inter', sans-serif" font-weight="600" font-size="15" fill="#1E293B">
+          • Vehicle make/color re-identification &amp; dwell time
+        </text>
+        <text y="48" font-family="'Inter', sans-serif" font-size="15" fill="#64748B">
+          • Surveillance video frame OCR &amp; suspect trajectory
+        </text>
+      </g>
+    </g>
+
+    <!-- 2. TOP-RIGHT (2:00): TELECOM CDR & IPDR -->
+    <g transform="translate(1746, 640)" filter="url(#card-shadow-light)">
+      <rect x="-240" y="-105" width="480" height="210" rx="22" fill="url(#card-bg-light)" stroke="#059669" stroke-width="3"/>
+      <path d="M -240 -83 Q -240 -105 -218 -105 L 218 -105 Q 240 -105 240 -83 L 240 -76 L -240 -76 Z" fill="url(#lgrad-telecom)"/>
+      
+      <g transform="translate(-200, -42)">
+        <circle cx="24" cy="24" r="24" fill="#D1FAE5" stroke="#059669" stroke-width="2"/>
+        <text x="24" y="32" text-anchor="middle" font-size="24">📱</text>
+      </g>
+      <text x="-135" y="-28" font-family="'Outfit', sans-serif" font-weight="800" font-size="25" fill="#0F172A">
+        Telecom CDR &amp; IPDR
+      </text>
+      <rect x="-135" y="-14" width="180" height="22" rx="11" fill="#D1FAE5" stroke="#059669" stroke-width="1.2"/>
+      <text x="-45" y="2" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-weight="700" font-size="12" fill="#047857">
+        High-Frequency Bursts
+      </text>
+
+      <g transform="translate(-205, 38)">
+        <text y="0" font-family="'Inter', sans-serif" font-weight="600" font-size="15" fill="#1E293B">
+          • Burner SIM &amp; cloned IMEI/IMSI pair detection
+        </text>
+        <text y="24" font-family="'Inter', sans-serif" font-weight="600" font-size="15" fill="#1E293B">
+          • Call duration spikes &amp; night communication bursts
+        </text>
+        <text y="48" font-family="'Inter', sans-serif" font-size="15" fill="#64748B">
+          • Multi-party conference &amp; encrypted IP packet logs
+        </text>
+      </g>
+    </g>
+
+    <!-- 3. BOTTOM-RIGHT (4:00): BANKING & HAWALA -->
+    <g transform="translate(1746, 1270)" filter="url(#card-shadow-light)">
+      <rect x="-240" y="-105" width="480" height="210" rx="22" fill="url(#card-bg-light)" stroke="#D97706" stroke-width="3"/>
+      <path d="M -240 -83 Q -240 -105 -218 -105 L 218 -105 Q 240 -105 240 -83 L 240 -76 L -240 -76 Z" fill="url(#lgrad-banking)"/>
+      
+      <g transform="translate(-200, -42)">
+        <circle cx="24" cy="24" r="24" fill="#FEF3C7" stroke="#D97706" stroke-width="2"/>
+        <text x="24" y="32" text-anchor="middle" font-size="24">🏦</text>
+      </g>
+      <text x="-135" y="-28" font-family="'Outfit', sans-serif" font-weight="800" font-size="25" fill="#0F172A">
+        Banking &amp; Hawala Flows
+      </text>
+      <rect x="-135" y="-14" width="195" height="22" rx="11" fill="#FEF3C7" stroke="#D97706" stroke-width="1.2"/>
+      <text x="-37" y="2" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-weight="700" font-size="12" fill="#B45309">
+        Smurfing &amp; Mule Rings
+      </text>
+
+      <g transform="translate(-205, 38)">
+        <text y="0" font-family="'Inter', sans-serif" font-weight="600" font-size="15" fill="#1E293B">
+          • Rapid structured transfers (&lt;₹50,000 threshold)
+        </text>
+        <text y="24" font-family="'Inter', sans-serif" font-weight="600" font-size="15" fill="#1E293B">
+          • Mule accounts &amp; cooperative society money funnels
+        </text>
+        <text y="48" font-family="'Inter', sans-serif" font-size="15" fill="#64748B">
+          • Shell company beneficial ownership de-anonymization
+        </text>
+      </g>
+    </g>
+
+    <!-- 4. BOTTOM (6:00): POLICE FIRs & LEGAL NLP -->
+    <g transform="translate(1200, 1585)" filter="url(#card-shadow-light)">
+      <rect x="-240" y="-105" width="480" height="210" rx="22" fill="url(#card-bg-light)" stroke="#7C3AED" stroke-width="3"/>
+      <path d="M -240 -83 Q -240 -105 -218 -105 L 218 -105 Q 240 -105 240 -83 L 240 -76 L -240 -76 Z" fill="url(#lgrad-fir)"/>
+      
+      <g transform="translate(-200, -42)">
+        <circle cx="24" cy="24" r="24" fill="#F3E8FF" stroke="#7C3AED" stroke-width="2"/>
+        <text x="24" y="32" text-anchor="middle" font-size="24">⚖️</text>
+      </g>
+      <text x="-135" y="-28" font-family="'Outfit', sans-serif" font-weight="800" font-size="25" fill="#0F172A">
+        Police FIRs &amp; Legal NLP
+      </text>
+      <rect x="-135" y="-14" width="185" height="22" rx="11" fill="#F3E8FF" stroke="#7C3AED" stroke-width="1.2"/>
+      <text x="-42" y="2" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-weight="700" font-size="12" fill="#6D28D9">
+        Sec 65B Court Evidence
+      </text>
+
+      <g transform="translate(-205, 38)">
+        <text y="0" font-family="'Inter', sans-serif" font-weight="600" font-size="15" fill="#1E293B">
+          • Automated NER: Accused, witnesses, seized assets
+        </text>
+        <text y="24" font-family="'Inter', sans-serif" font-weight="600" font-size="15" fill="#1E293B">
+          • IPC/BNS statutory section extraction &amp; chargesheets
+        </text>
+        <text y="48" font-family="'Inter', sans-serif" font-size="15" fill="#64748B">
+          • Indian Evidence Act Section 65B digital certificate log
+        </text>
+      </g>
+    </g>
+
+    <!-- 5. BOTTOM-LEFT (8:00): GPS & MOBILITY -->
+    <g transform="translate(654, 1270)" filter="url(#card-shadow-light)">
+      <rect x="-240" y="-105" width="480" height="210" rx="22" fill="url(#card-bg-light)" stroke="#2563EB" stroke-width="3"/>
+      <path d="M -240 -83 Q -240 -105 -218 -105 L 218 -105 Q 240 -105 240 -83 L 240 -76 L -240 -76 Z" fill="url(#lgrad-gps)"/>
+      
+      <g transform="translate(-200, -42)">
+        <circle cx="24" cy="24" r="24" fill="#EFF6FF" stroke="#2563EB" stroke-width="2"/>
+        <text x="24" y="32" text-anchor="middle" font-size="24">📍</text>
+      </g>
+      <text x="-135" y="-28" font-family="'Outfit', sans-serif" font-weight="800" font-size="25" fill="#0F172A">
+        GPS &amp; Mobility Dwells
+      </text>
+      <rect x="-135" y="-14" width="190" height="22" rx="11" fill="#EFF6FF" stroke="#2563EB" stroke-width="1.2"/>
+      <text x="-40" y="2" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-weight="700" font-size="12" fill="#1D4ED8">
+        Spatial-Temporal Co-Presence
+      </text>
+
+      <g transform="translate(-205, 38)">
+        <text y="0" font-family="'Inter', sans-serif" font-weight="600" font-size="15" fill="#1E293B">
+          • Cell tower sector dwell time &amp; mobility trajectories
+        </text>
+        <text y="24" font-family="'Inter', sans-serif" font-weight="600" font-size="15" fill="#1E293B">
+          • Suspect rendezvous detection (15-min spatial buffer)
+        </text>
+        <text y="48" font-family="'Inter', sans-serif" font-size="15" fill="#64748B">
+          • Crime hotspot clustering &amp; safehouse identification
+        </text>
+      </g>
+    </g>
+
+    <!-- 6. TOP-LEFT (10:00): VAHAN RTO REGISTRY -->
+    <g transform="translate(654, 640)" filter="url(#card-shadow-light)">
+      <rect x="-240" y="-105" width="480" height="210" rx="22" fill="url(#card-bg-light)" stroke="#E11D48" stroke-width="3"/>
+      <path d="M -240 -83 Q -240 -105 -218 -105 L 218 -105 Q 240 -105 240 -83 L 240 -76 L -240 -76 Z" fill="url(#lgrad-rto)"/>
+      
+      <g transform="translate(-200, -42)">
+        <circle cx="24" cy="24" r="24" fill="#FFF1F2" stroke="#E11D48" stroke-width="2"/>
+        <text x="24" y="32" text-anchor="middle" font-size="24">🚗</text>
+      </g>
+      <text x="-135" y="-28" font-family="'Outfit', sans-serif" font-weight="800" font-size="25" fill="#0F172A">
+        Vahan RTO Registry
+      </text>
+      <rect x="-135" y="-14" width="180" height="22" rx="11" fill="#FFF1F2" stroke="#E11D48" stroke-width="1.2"/>
+      <text x="-45" y="2" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-weight="700" font-size="12" fill="#BE123C">
+        Vehicle Verification
+      </text>
+
+      <g transform="translate(-205, 38)">
+        <text y="0" font-family="'Inter', sans-serif" font-weight="600" font-size="15" fill="#1E293B">
+          • Chassis &amp; engine number cross-verification
+        </text>
+        <text y="24" font-family="'Inter', sans-serif" font-weight="600" font-size="15" fill="#1E293B">
+          • Flag forged/cloned plates (RTO Sedan vs CCTV SUV)
+        </text>
+        <text y="48" font-family="'Inter', sans-serif" font-size="15" fill="#64748B">
+          • Blacklisted/stolen vehicle live alert dispatch
+        </text>
+      </g>
+    </g>
+
+    <!-- ==================== FOOTER ==================== -->
+    <g transform="translate(1200, 1745)">
+      <text text-anchor="middle" font-family="'Inter', sans-serif" font-weight="800" font-size="18" fill="#475569" letter-spacing="1">
+        ✦ NEURO-SYMBOLIC GRAPH ENGINE &nbsp;·&nbsp; ✦ AUTOMATED CONTRADICTION RESOLUTION &nbsp;·&nbsp; ✦ INVESTIGATOR-IN-THE-LOOP AI COPILOT
+      </text>
+    </g>
+
+  </svg>
+</div>
+</body>
+</html>

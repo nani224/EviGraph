@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>EviGraph Circular Connected Architecture</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Outfit:wght@500;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: transparent;
+    font-family: 'Inter', sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2400px;
+    height: 1800px;
+    overflow: hidden;
+  }
+  .canvas-container {
+    width: 2400px;
+    height: 1800px;
+    position: relative;
+    background: radial-gradient(circle at center, #0d1933 0%, #080e1f 65%, #050813 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  /* Grid pattern overlay */
+  .grid-bg {
+    position: absolute;
+    inset: 0;
+    background-image: 
+      radial-gradient(circle at 1px 1px, rgba(255,255,255,0.06) 1px, transparent 0),
+      linear-gradient(to right, rgba(59, 130, 246, 0.03) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(59, 130, 246, 0.03) 1px, transparent 1px);
+    background-size: 40px 40px, 80px 80px, 80px 80px;
+    pointer-events: none;
+  }
+  svg {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+</style>
+</head>
+<body>
+<div class="canvas-container">
+  <div class="grid-bg"></div>
+
+  <svg viewBox="0 0 2400 1800" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <!-- Glow Filters -->
+      <filter id="glow-cyan" x="-30%" y="-30%" width="160%" height="160%">
+        <feGaussianBlur stdDeviation="12" result="blur" />
+        <feMerge>
+          <feMergeNode in="blur" />
+          <feMergeNode in="SourceGraphic" />
+        </feMerge>
+      </filter>
+      <filter id="glow-emerald" x="-30%" y="-30%" width="160%" height="160%">
+        <feGaussianBlur stdDeviation="12" result="blur" />
+        <feMerge>
+          <feMergeNode in="blur" />
+          <feMergeNode in="SourceGraphic" />
+        </feMerge>
+      </filter>
+      <filter id="glow-core" x="-50%" y="-50%" width="200%" height="200%">
+        <feGaussianBlur stdDeviation="28" result="blur" />
+        <feColorMatrix type="matrix" values="0 0 0 0 0.15   0 0 0 0 0.55   0 0 0 0 0.95  0 0 0 0.8 0"/>
+        <feMerge>
+          <feMergeNode />
+          <feMergeNode in="SourceGraphic" />
+        </feMerge>
+      </filter>
+      <filter id="card-shadow" x="-20%" y="-20%" width="140%" height="140%">
+        <feDropShadow dx="0" dy="16" stdDeviation="24" flood-color="#000000" flood-opacity="0.6"/>
+      </filter>
+
+      <!-- Gradients -->
+      <linearGradient id="grad-core" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#1E3A8A" />
+        <stop offset="50%" stop-color="#0F172A" />
+        <stop offset="100%" stop-color="#090D16" />
+      </linearGradient>
+      
+      <linearGradient id="grad-core-border" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#60A5FA" />
+        <stop offset="50%" stop-color="#3B82F6" />
+        <stop offset="100%" stop-color="#1D4ED8" />
+      </linearGradient>
+
+      <!-- Node Gradients -->
+      <linearGradient id="grad-cctv" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#06B6D4" /><stop offset="100%" stop-color="#0891B2" />
+      </linearGradient>
+      <linearGradient id="grad-telecom" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#10B981" /><stop offset="100%" stop-color="#059669" />
+      </linearGradient>
+      <linearGradient id="grad-banking" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#F59E0B" /><stop offset="100%" stop-color="#D97706" />
+      </linearGradient>
+      <linearGradient id="grad-fir" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#A855F7" /><stop offset="100%" stop-color="#7C3AED" />
+      </linearGradient>
+      <linearGradient id="grad-gps" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#3B82F6" /><stop offset="100%" stop-color="#1D4ED8" />
+      </linearGradient>
+      <linearGradient id="grad-rto" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#F43F5E" /><stop offset="100%" stop-color="#BE123C" />
+      </linearGradient>
+
+      <!-- Radial Background for Cards -->
+      <linearGradient id="card-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#162238" stop-opacity="0.95" />
+        <stop offset="100%" stop-color="#0d1527" stop-opacity="0.98" />
+      </linearGradient>
+
+      <!-- Flow Marker Arrow -->
+      <marker id="arrow-flow" viewBox="0 0 12 12" refX="8" refY="6" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+        <path d="M 1 2 L 10 6 L 1 10 z" fill="#60A5FA" />
+      </marker>
+      <marker id="arrow-warn" viewBox="0 0 12 12" refX="8" refY="6" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+        <path d="M 1 2 L 10 6 L 1 10 z" fill="#F43F5E" />
+      </marker>
+      <marker id="arrow-green" viewBox="0 0 12 12" refX="8" refY="6" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+        <path d="M 1 2 L 10 6 L 1 10 z" fill="#10B981" />
+      </marker>
+    </defs>
+
+    <!-- ==================== HEADER BANNER ==================== -->
+    <g transform="translate(1200, 110)">
+      <text text-anchor="middle" font-family="'Outfit', sans-serif" font-weight="900" font-size="52" fill="#FFFFFF" letter-spacing="2">
+        MULTI-SOURCE CRIMINAL INTELLIGENCE FUSION
+      </text>
+      <text y="46" text-anchor="middle" font-family="'Inter', sans-serif" font-weight="600" font-size="24" fill="#94A3B8" letter-spacing="1.5">
+        Heterogeneous Forensic Feeds Ingested &amp; Normalized into a Unified Knowledge Graph
+      </text>
+      <!-- Subtle top decorative bar -->
+      <rect x="-350" y="70" width="700" height="3" rx="1.5" fill="url(#grad-core-border)" opacity="0.8"/>
+    </g>
+
+    <!-- ==================== BACKGROUND ORBITS & RADAR ==================== -->
+    <!-- Center coordinate: CX=1200, CY=950 -->
+    <!-- Outer Orbit Circle -->
+    <circle cx="1200" cy="950" r="630" fill="none" stroke="rgba(59, 130, 246, 0.15)" stroke-width="2" stroke-dasharray="8 8"/>
+    <!-- Middle Orbit Circle -->
+    <circle cx="1200" cy="950" r="460" fill="none" stroke="rgba(59, 130, 246, 0.25)" stroke-width="1.5" />
+    <circle cx="1200" cy="950" r="320" fill="none" stroke="rgba(96, 165, 250, 0.3)" stroke-width="2" stroke-dasharray="12 6"/>
+    
+    <!-- Rotating decorative ticks on middle orbit -->
+    <g transform="translate(1200, 950)" stroke="rgba(96, 165, 250, 0.3)" stroke-width="2">
+      <line x1="0" y1="-468" x2="0" y2="-452" />
+      <line x1="468" y1="0" x2="452" y2="0" />
+      <line x1="0" y1="468" x2="0" y2="452" />
+      <line x1="-468" y1="0" x2="-452" y2="0" />
+      <line x1="328" y1="-328" x2="317" y2="-317" />
+      <line x1="-328" y1="-328" x2="-317" y2="-317" />
+      <line x1="328" y1="328" x2="317" y2="317" />
+      <line x1="-328" y1="328" x2="-317" y2="317" />
+    </g>
+
+    <!-- ==================== CROSS-SOURCE CORRELATION ARCS ==================== -->
+    <!-- CCTV (Top, 1200, 320) <-> RTO (Top-Left, 654, 635) : Contradiction Check -->
+    <path d="M 1030 380 Q 750 420 740 560" fill="none" stroke="#F43F5E" stroke-width="3" stroke-dasharray="8 6" opacity="0.85" marker-end="url(#arrow-warn)"/>
+    <g transform="translate(860, 430)">
+      <rect x="-120" y="-18" width="240" height="36" rx="18" fill="#1E101D" stroke="#F43F5E" stroke-width="1.5" />
+      <text y="5" text-anchor="middle" font-family="'Inter', sans-serif" font-weight="700" font-size="13" fill="#FDA4AF">
+        ⚠️ Contradiction: Plate Mismatch
+      </text>
+    </g>
+
+    <!-- Telecom (Top-Right, 1746, 635) <-> GPS (Bottom-Left, 654, 1265) : Co-Presence or Cross Link -->
+    <!-- Telecom (1746, 635) <-> Banking (1746, 1265) : Hawala Smurfing & Burner Link -->
+    <path d="M 1830 750 Q 1920 950 1830 1150" fill="none" stroke="#10B981" stroke-width="3" stroke-dasharray="8 6" opacity="0.85" marker-end="url(#arrow-green)"/>
+    <g transform="translate(1930, 950)">
+      <rect x="-115" y="-18" width="230" height="36" rx="18" fill="#0A1F18" stroke="#10B981" stroke-width="1.5" />
+      <text y="5" text-anchor="middle" font-family="'Inter', sans-serif" font-weight="700" font-size="13" fill="#6EE7B7">
+        🔗 Mule Account &amp; SIM Link
+      </text>
+    </g>
+
+    <!-- GPS (654, 1265) <-> FIR Incident (1200, 1580) : Crime Scene Dwell Correlation -->
+    <path d="M 770 1340 Q 950 1520 1060 1540" fill="none" stroke="#3B82F6" stroke-width="3" stroke-dasharray="8 6" opacity="0.85" marker-end="url(#arrow-flow)"/>
+    <g transform="translate(880, 1475)">
+      <rect x="-120" y="-18" width="240" height="36" rx="18" fill="#0C1A35" stroke="#3B82F6" stroke-width="1.5" />
+      <text y="5" text-anchor="middle" font-family="'Inter', sans-serif" font-weight="700" font-size="13" fill="#93C5FD">
+        📍 Crime Scene Dwell Match
+      </text>
+    </g>
+
+    <!-- ==================== RADIAL CONNECTORS TO CENTER ==================== -->
+    <!-- Node positions at R=630, CX=1200, CY=950:
+         Angle 270 (-90): (1200, 320)  - CCTV
+         Angle 330 (-30): (1746, 635)  - Telecom
+         Angle 30  (+30): (1746, 1265) - Banking
+         Angle 90  (+90): (1200, 1580) - Police FIR
+         Angle 150 (150): (654, 1265)  - GPS Mobility
+         Angle 210 (210): (654, 635)   - Vahan RTO
+    -->
+    <g stroke-linecap="round">
+      <!-- To CCTV -->
+      <line x1="1200" y1="450" x2="1200" y2="720" stroke="url(#grad-cctv)" stroke-width="4" stroke-dasharray="10 6"/>
+      <circle cx="1200" cy="580" r="6" fill="#06B6D4" filter="url(#glow-cyan)"/>
+      <circle cx="1200" cy="650" r="4" fill="#06B6D4" />
+
+      <!-- To Telecom -->
+      <line x1="1620" y1="710" x2="1395" y2="840" stroke="url(#grad-telecom)" stroke-width="4" stroke-dasharray="10 6"/>
+      <circle cx="1510" cy="775" r="6" fill="#10B981" filter="url(#glow-emerald)"/>
+
+      <!-- To Banking -->
+      <line x1="1620" y1="1190" x2="1395" y2="1060" stroke="url(#grad-banking)" stroke-width="4" stroke-dasharray="10 6"/>
+      <circle cx="1510" cy="1125" r="6" fill="#F59E0B"/>
+
+      <!-- To FIR -->
+      <line x1="1200" y1="1450" x2="1200" y2="1180" stroke="url(#grad-fir)" stroke-width="4" stroke-dasharray="10 6"/>
+      <circle cx="1200" cy="1320" r="6" fill="#A855F7"/>
+
+      <!-- To GPS -->
+      <line x1="780" y1="1190" x2="1005" y2="1060" stroke="url(#grad-gps)" stroke-width="4" stroke-dasharray="10 6"/>
+      <circle cx="890" cy="1125" r="6" fill="#3B82F6"/>
+
+      <!-- To RTO -->
+      <line x1="780" y1="710" x2="1005" y2="840" stroke="url(#grad-rto)" stroke-width="4" stroke-dasharray="10 6"/>
+      <circle cx="890" cy="775" r="6" fill="#F43F5E"/>
+    </g>
+
+    <!-- ==================== CENTRAL HUB: EVIGRAPH ==================== -->
+    <g transform="translate(1200, 950)" filter="url(#card-shadow)">
+      <!-- Outer Pulsing Glow Circle -->
+      <circle cx="0" cy="0" r="235" fill="none" stroke="rgba(59, 130, 246, 0.4)" stroke-width="8" stroke-dasharray="20 12" filter="url(#glow-core)"/>
+      <circle cx="0" cy="0" r="215" fill="none" stroke="url(#grad-core-border)" stroke-width="4" />
+      <!-- Solid Core Background -->
+      <circle cx="0" cy="0" r="195" fill="url(#grad-core)" stroke="#60A5FA" stroke-width="3" />
+
+      <!-- Inner Neural Network Graph Constellation (Visual Symbol) -->
+      <g opacity="0.35">
+        <line x1="-80" y1="-40" x2="0" y2="-90" stroke="#93C5FD" stroke-width="2"/>
+        <line x1="80" y1="-40" x2="0" y2="-90" stroke="#93C5FD" stroke-width="2"/>
+        <line x1="-80" y1="-40" x2="-60" y2="50" stroke="#93C5FD" stroke-width="2"/>
+        <line x1="80" y1="-40" x2="60" y2="50" stroke="#93C5FD" stroke-width="2"/>
+        <line x1="-60" y1="50" x2="0" y2="80" stroke="#93C5FD" stroke-width="2"/>
+        <line x1="60" y1="50" x2="0" y2="80" stroke="#93C5FD" stroke-width="2"/>
+        <line x1="0" y1="-90" x2="0" y2="80" stroke="#93C5FD" stroke-width="1.5" stroke-dasharray="4 4"/>
+        <line x1="-80" y1="-40" x2="80" y2="-40" stroke="#93C5FD" stroke-width="1.5" stroke-dasharray="4 4"/>
+        
+        <circle cx="0" cy="-90" r="7" fill="#60A5FA"/>
+        <circle cx="-80" cy="-40" r="6" fill="#38BDF8"/>
+        <circle cx="80" cy="-40" r="6" fill="#38BDF8"/>
+        <circle cx="-60" cy="50" r="6" fill="#818CF8"/>
+        <circle cx="60" cy="50" r="6" fill="#818CF8"/>
+        <circle cx="0" cy="80" r="7" fill="#60A5FA"/>
+      </g>
+
+      <!-- Center Logo & Branding -->
+      <!-- Shield / AI Badge Icon -->
+      <g transform="translate(0, -95)">
+        <polygon points="0,-26 22,-12 22,14 0,26 -22,14 -22,-12" fill="#1D4ED8" stroke="#93C5FD" stroke-width="2.5"/>
+        <path d="M -8 -2 L -2 6 L 10 -6" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+      </g>
+
+      <text y="-32" text-anchor="middle" font-family="'Outfit', sans-serif" font-weight="900" font-size="44" fill="#FFFFFF" letter-spacing="1">
+        EviGraph
+      </text>
+      <text y="-5" text-anchor="middle" font-family="'Inter', sans-serif" font-weight="700" font-size="18" fill="#38BDF8" letter-spacing="2">
+        CRIMINAL KNOWLEDGE GRAPH
+      </text>
+      <text y="18" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-weight="500" font-size="13" fill="#94A3B8">
+        [NEURO-SYMBOLIC CORE]
+      </text>
+
+      <!-- Separator line -->
+      <line x1="-120" y1="36" x2="120" y2="36" stroke="rgba(148, 163, 184, 0.3)" stroke-width="1.5"/>
+
+      <!-- Value Pill Badges in Center -->
+      <g transform="translate(0, 62)">
+        <rect x="-140" y="-14" width="280" height="26" rx="13" fill="#1E293B" stroke="#3B82F6" stroke-width="1.2"/>
+        <text y="4" text-anchor="middle" font-family="'Inter', sans-serif" font-weight="600" font-size="13" fill="#E2E8F0">
+          ⚡ Multi-Hop Traversal &lt;100ms
+        </text>
+      </g>
+      <g transform="translate(0, 96)">
+        <rect x="-140" y="-14" width="280" height="26" rx="13" fill="#1E293B" stroke="#10B981" stroke-width="1.2"/>
+        <text y="4" text-anchor="middle" font-family="'Inter', sans-serif" font-weight="600" font-size="13" fill="#E2E8F0">
+          🛡️ Sec 65B Tamper-Proof Audit
+        </text>
+      </g>
+      <g transform="translate(0, 130)">
+        <rect x="-140" y="-14" width="280" height="26" rx="13" fill="#1E293B" stroke="#8B5CF6" stroke-width="1.2"/>
+        <text y="4" text-anchor="middle" font-family="'Inter', sans-serif" font-weight="600" font-size="13" fill="#E2E8F0">
+          🔍 Automated Entity Disambiguation
+        </text>
+      </g>
+    </g>
+
+    <!-- ==================== 6 SATELLITE INTELLIGENCE CARDS ==================== -->
+
+    <!-- 1. TOP (12:00): CCTV & ANPR VISION (1200, 320) -->
+    <g transform="translate(1200, 320)" filter="url(#card-shadow)">
+      <rect x="-240" y="-105" width="480" height="210" rx="24" fill="url(#card-bg)" stroke="#06B6D4" stroke-width="3"/>
+      <!-- Glowing Accent top stripe -->
+      <path d="M -240 -81 Q -240 -105 -216 -105 L 216 -105 Q 240 -105 240 -81 L 240 -75 L -240 -75 Z" fill="url(#grad-cctv)"/>
+      
+      <!-- Card Header Icon & Tag -->
+      <g transform="translate(-200, -45)">
+        <circle cx="24" cy="24" r="24" fill="#0E2D3E" stroke="#06B6D4" stroke-width="2"/>
+        <text x="24" y="32" text-anchor="middle" font-size="24">📹</text>
+      </g>
+      <text x="-135" y="-30" font-family="'Outfit', sans-serif" font-weight="800" font-size="25" fill="#FFFFFF">
+        CCTV &amp; ANPR Vision
+      </text>
+      <rect x="-135" y="-16" width="160" height="22" rx="11" fill="#083344" stroke="#06B6D4" stroke-width="1"/>
+      <text x="-55" y="0" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-weight="700" font-size="12" fill="#67E8F9">
+        YOLOv8 + EasyOCR
+      </text>
+
+      <!-- Bullets -->
+      <g transform="translate(-205, 35)">
+        <text y="0" font-family="'Inter', sans-serif" font-size="15" fill="#CBD5E1">
+          • Real-time plate parsing (36 State codes &amp; BH series)
+        </text>
+        <text y="24" font-family="'Inter', sans-serif" font-size="15" fill="#CBD5E1">
+          • Vehicle make/color re-identification &amp; dwell time
+        </text>
+        <text y="48" font-family="'Inter', sans-serif" font-size="15" fill="#94A3B8">
+          • Surveillance video frame OCR &amp; suspect trajectory
+        </text>
+      </g>
+    </g>
+
+    <!-- 2. TOP-RIGHT (2:00): TELECOM CDR & IPDR (1746, 635) -->
+    <g transform="translate(1746, 635)" filter="url(#card-shadow)">
+      <rect x="-240" y="-105" width="480" height="210" rx="24" fill="url(#card-bg)" stroke="#10B981" stroke-width="3"/>
+      <path d="M -240 -81 Q -240 -105 -216 -105 L 216 -105 Q 240 -105 240 -81 L 240 -75 L -240 -75 Z" fill="url(#grad-telecom)"/>
+      
+      <g transform="translate(-200, -45)">
+        <circle cx="24" cy="24" r="24" fill="#0A2C20" stroke="#10B981" stroke-width="2"/>
+        <text x="24" y="32" text-anchor="middle" font-size="24">📱</text>
+      </g>
+      <text x="-135" y="-30" font-family="'Outfit', sans-serif" font-weight="800" font-size="25" fill="#FFFFFF">
+        Telecom CDR &amp; IPDR
+      </text>
+      <rect x="-135" y="-16" width="175" height="22" rx="11" fill="#064E3B" stroke="#10B981" stroke-width="1"/>
+      <text x="-48" y="0" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-weight="700" font-size="12" fill="#6EE7B7">
+        High-Frequency Bursts
+      </text>
+
+      <g transform="translate(-205, 35)">
+        <text y="0" font-family="'Inter', sans-serif" font-size="15" fill="#CBD5E1">
+          • Burner SIM &amp; cloned IMEI/IMSI pair detection
+        </text>
+        <text y="24" font-family="'Inter', sans-serif" font-size="15" fill="#CBD5E1">
+          • Call duration spikes &amp; night communication bursts
+        </text>
+        <text y="48" font-family="'Inter', sans-serif" font-size="15" fill="#94A3B8">
+          • Multi-party conference &amp; encrypted IP packet logs
+        </text>
+      </g>
+    </g>
+
+    <!-- 3. BOTTOM-RIGHT (4:00): BANKING & HAWALA (1746, 1265) -->
+    <g transform="translate(1746, 1265)" filter="url(#card-shadow)">
+      <rect x="-240" y="-105" width="480" height="210" rx="24" fill="url(#card-bg)" stroke="#F59E0B" stroke-width="3"/>
+      <path d="M -240 -81 Q -240 -105 -216 -105 L 216 -105 Q 240 -105 240 -81 L 240 -75 L -240 -75 Z" fill="url(#grad-banking)"/>
+      
+      <g transform="translate(-200, -45)">
+        <circle cx="24" cy="24" r="24" fill="#33220A" stroke="#F59E0B" stroke-width="2"/>
+        <text x="24" y="32" text-anchor="middle" font-size="24">🏦</text>
+      </g>
+      <text x="-135" y="-30" font-family="'Outfit', sans-serif" font-weight="800" font-size="25" fill="#FFFFFF">
+        Banking &amp; Hawala Flows
+      </text>
+      <rect x="-135" y="-16" width="190" height="22" rx="11" fill="#451A03" stroke="#F59E0B" stroke-width="1"/>
+      <text x="-40" y="0" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-weight="700" font-size="12" fill="#FDE68A">
+        Smurfing &amp; Mule Rings
+      </text>
+
+      <g transform="translate(-205, 35)">
+        <text y="0" font-family="'Inter', sans-serif" font-size="15" fill="#CBD5E1">
+          • Rapid structured transfers (&lt;₹50,000 threshold)
+        </text>
+        <text y="24" font-family="'Inter', sans-serif" font-size="15" fill="#CBD5E1">
+          • Mule accounts &amp; cooperative society money funnels
+        </text>
+        <text y="48" font-family="'Inter', sans-serif" font-size="15" fill="#94A3B8">
+          • Shell company beneficial ownership de-anonymization
+        </text>
+      </g>
+    </g>
+
+    <!-- 4. BOTTOM (6:00): POLICE FIRs & LEGAL NLP (1200, 1580) -->
+    <g transform="translate(1200, 1580)" filter="url(#card-shadow)">
+      <rect x="-240" y="-105" width="480" height="210" rx="24" fill="url(#card-bg)" stroke="#A855F7" stroke-width="3"/>
+      <path d="M -240 -81 Q -240 -105 -216 -105 L 216 -105 Q 240 -105 240 -81 L 240 -75 L -240 -75 Z" fill="url(#grad-fir)"/>
+      
+      <g transform="translate(-200, -45)">
+        <circle cx="24" cy="24" r="24" fill="#2E1045" stroke="#A855F7" stroke-width="2"/>
+        <text x="24" y="32" text-anchor="middle" font-size="24">⚖️</text>
+      </g>
+      <text x="-135" y="-30" font-family="'Outfit', sans-serif" font-weight="800" font-size="25" fill="#FFFFFF">
+        Police FIRs &amp; Legal NLP
+      </text>
+      <rect x="-135" y="-16" width="180" height="22" rx="11" fill="#3B0764" stroke="#A855F7" stroke-width="1"/>
+      <text x="-45" y="0" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-weight="700" font-size="12" fill="#E9D5FF">
+        Sec 65B Court Evidence
+      </text>
+
+      <g transform="translate(-205, 35)">
+        <text y="0" font-family="'Inter', sans-serif" font-size="15" fill="#CBD5E1">
+          • Automated NER: Accused, witnesses, seized assets
+        </text>
+        <text y="24" font-family="'Inter', sans-serif" font-size="15" fill="#CBD5E1">
+          • IPC/BNS statutory section extraction &amp; chargesheets
+        </text>
+        <text y="48" font-family="'Inter', sans-serif" font-size="15" fill="#94A3B8">
+          • Indian Evidence Act Section 65B digital certificate log
+        </text>
+      </g>
+    </g>
+
+    <!-- 5. BOTTOM-LEFT (8:00): GPS & MOBILITY (654, 1265) -->
+    <g transform="translate(654, 1265)" filter="url(#card-shadow)">
+      <rect x="-240" y="-105" width="480" height="210" rx="24" fill="url(#card-bg)" stroke="#3B82F6" stroke-width="3"/>
+      <path d="M -240 -81 Q -240 -105 -216 -105 L 216 -105 Q 240 -105 240 -81 L 240 -75 L -240 -75 Z" fill="url(#grad-gps)"/>
+      
+      <g transform="translate(-200, -45)">
+        <circle cx="24" cy="24" r="24" fill="#0B234B" stroke="#3B82F6" stroke-width="2"/>
+        <text x="24" y="32" text-anchor="middle" font-size="24">📍</text>
+      </g>
+      <text x="-135" y="-30" font-family="'Outfit', sans-serif" font-weight="800" font-size="25" fill="#FFFFFF">
+        GPS &amp; Mobility Dwells
+      </text>
+      <rect x="-135" y="-16" width="185" height="22" rx="11" fill="#1E3A8A" stroke="#3B82F6" stroke-width="1"/>
+      <text x="-42" y="0" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-weight="700" font-size="12" fill="#93C5FD">
+        Spatial-Temporal Co-Presence
+      </text>
+
+      <g transform="translate(-205, 35)">
+        <text y="0" font-family="'Inter', sans-serif" font-size="15" fill="#CBD5E1">
+          • Cell tower sector dwell time &amp; mobility trajectories
+        </text>
+        <text y="24" font-family="'Inter', sans-serif" font-size="15" fill="#CBD5E1">
+          • Suspect rendezvous detection (15-min spatial buffer)
+        </text>
+        <text y="48" font-family="'Inter', sans-serif" font-size="15" fill="#94A3B8">
+          • Crime hotspot clustering &amp; safehouse identification
+        </text>
+      </g>
+    </g>
+
+    <!-- 6. TOP-LEFT (10:00): VAHAN RTO REGISTRY (654, 635) -->
+    <g transform="translate(654, 635)" filter="url(#card-shadow)">
+      <rect x="-240" y="-105" width="480" height="210" rx="24" fill="url(#card-bg)" stroke="#F43F5E" stroke-width="3"/>
+      <path d="M -240 -81 Q -240 -105 -216 -105 L 216 -105 Q 240 -105 240 -81 L 240 -75 L -240 -75 Z" fill="url(#grad-rto)"/>
+      
+      <g transform="translate(-200, -45)">
+        <circle cx="24" cy="24" r="24" fill="#3D0B1B" stroke="#F43F5E" stroke-width="2"/>
+        <text x="24" y="32" text-anchor="middle" font-size="24">🚗</text>
+      </g>
+      <text x="-135" y="-30" font-family="'Outfit', sans-serif" font-weight="800" font-size="25" fill="#FFFFFF">
+        Vahan RTO Registry
+      </text>
+      <rect x="-135" y="-16" width="180" height="22" rx="11" fill="#4C0519" stroke="#F43F5E" stroke-width="1"/>
+      <text x="-45" y="0" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-weight="700" font-size="12" fill="#FDA4AF">
+        Vehicle Verification
+      </text>
+
+      <g transform="translate(-205, 35)">
+        <text y="0" font-family="'Inter', sans-serif" font-size="15" fill="#CBD5E1">
+          • Chassis &amp; engine number cross-verification
+        </text>
+        <text y="24" font-family="'Inter', sans-serif" font-size="15" fill="#CBD5E1">
+          • Flag forged/cloned plates (RTO Sedan vs CCTV SUV)
+        </text>
+        <text y="48" font-family="'Inter', sans-serif" font-size="15" fill="#94A3B8">
+          • Blacklisted/stolen vehicle live alert dispatch
+        </text>
+      </g>
+    </g>
+
+    <!-- ==================== BOTTOM VALUE PROPOSITION PILLARS ==================== -->
+    <g transform="translate(1200, 1740)">
+      <text text-anchor="middle" font-family="'Inter', sans-serif" font-weight="700" font-size="17" fill="#64748B" letter-spacing="1">
+        ✦ NEURO-SYMBOLIC GRAPH ENGINE &nbsp;·&nbsp; ✦ AUTOMATED CONTRADICTION RESOLUTION &nbsp;·&nbsp; ✦ INVESTIGATOR-IN-THE-LOOP AI COPILOT
+      </text>
+    </g>
+
+  </svg>
+</div>
+</body>
+</html>

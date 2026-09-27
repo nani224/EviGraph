@@ -1,0 +1,7 @@
+txn_id,timestamp,from_account,to_account,sender_name,receiver_name,amount_inr,payment_mode,status,reference_remarks
+TXN-901,2026-08-30T10:05:00+05:30,HDFC-9911002233,ICICI-1102938475,Dr. Rajeshwar Rao,Apex Exports Escrow,450000,RTGS,COMPLETED,Consultancy invoice advance
+TXN-902,2026-08-30T10:25:00+05:30,ICICI-1102938475,AXIS-9920192837,Apex Exports Escrow,Suresh Babu,420000,IMPS,COMPLETED,Inter-account clearance
+TXN-903,2026-08-30T12:45:00+05:30,AXIS-9920192837,CASH-ACC-001,Suresh Babu,Ramesh Kumar (Courier-1),125000,CASH_WITHDRAWAL,COMPLETED,Self bearer cheque ATM-Madhapur
+TXN-904,2026-08-30T13:55:00+05:30,AXIS-9920192837,SBIN-5544332211,Suresh Babu,Rajesh Verma (Mule-2),100000,UPI,COMPLETED,Commission settlement
+TXN-905,2026-08-30T14:30:00+05:30,AXIS-9920192837,HDFC-8829103948,Suresh Babu,Vikram Malhotra,125000,NEFT,COMPLETED,Contract royalty payout
+TXN-906,2026-08-30T15:10:00+05:30,AXIS-9920192837,CASH-ACC-002,Suresh Babu,Self ATM Cash,70000,ATM_DISBURSEMENT,COMPLETED,Cash withdrawal Axis ATM Jubilee Hills

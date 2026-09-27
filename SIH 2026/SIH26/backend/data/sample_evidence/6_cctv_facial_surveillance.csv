@@ -1,0 +1,6 @@
+surveillance_id,timestamp,camera_id,location,subject_person,facial_confidence,action_observed,associates_present
+SURV-301,2026-08-30T10:12:00+05:30,CAM-04,Jubilee Hills Checkpost,Vikram Malhotra,0.96,Driver inside Black Scorpio TS09EA2758,Solo
+SURV-302,2026-08-30T12:08:30+05:30,CAM-17,Madhapur Metro Station,Suresh Babu,0.94,Exiting White Innova MHEE2388 carrying envelope,Ramesh Kumar (Courier-1)
+SURV-303,2026-08-30T12:12:00+05:30,CAM-17,Madhapur Metro Pillar 12,Ramesh Kumar (Courier-1),0.91,Receiving envelope from Suresh Babu,Suresh Babu
+SURV-304,2026-08-30T12:47:15+05:30,ATM-CAM-01,Axis Bank ATM Madhapur,Suresh Babu,0.98,Cash withdrawal of Rs 1.25L at ATM terminal,Solo
+SURV-305,2026-08-30T14:18:00+05:30,CAM-04,Jubilee Hills Road No 10,Vikram Malhotra,0.95,Brief roadside meetup and handover,Suresh Babu

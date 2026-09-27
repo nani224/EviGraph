@@ -1,0 +1,6 @@
+reg_number,owner_name,vehicle_class,maker_model,fuel_type,reg_date,rto_code,rto_office,chassis_last4,status,flags
+TS 09 EA 2758,Pooja Hegde,Sedan,Honda City,Petrol,2022-04-12,TS-09,Khairatabad Hyderabad,4412,SUSPENDED,FLAGGED_CLONED_STOLEN_MISMATCH
+MH EE 2388,Suresh Babu,MUV,Toyota Innova Crysta,Diesel,2023-01-18,MH-12,Pune Central,8821,ACTIVE,VERIFIED_OWNER_PRIMARY
+GA 05 F 0888,Suresh Babu,Sedan,Skoda Octavia,Petrol,2021-11-05,GA-05,Panaji North,3319,ACTIVE,VERIFIED_OWNER_SECONDARY
+TS 09 AB 1234,Vikram Malhotra,SUV,Mahindra XUV700,Diesel,2024-02-20,TS-09,Khairatabad Hyderabad,1029,ACTIVE,REGISTERED_LEGITIMATE
+KA 01 MJ 4490,Dr. Rajeshwar Rao,Sedan,Mercedes C200,Petrol,2020-08-14,KA-01,Bangalore Central,9910,ACTIVE,VICTIM_COMPLAINANT
