@@ -1,0 +1,11 @@
+fastapi>=0.110.0
+uvicorn>=0.29.0
+networkx>=3.2.1
+scikit-learn>=1.4.0
+python-louvain>=0.16
+python-dotenv>=1.0.0
+python-multipart>=0.0.9
+aiofiles>=23.2.1
+pydantic>=2.6.0
+Pillow>=10.0.0
+numpy>=1.26.0
