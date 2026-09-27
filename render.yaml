@@ -3,7 +3,7 @@ services:
     name: evigraph
     runtime: python
     plan: free
-    buildCommand: "pip install -r 'SIH 2026/SIH26/backend/requirements-render.txt'"
+    buildCommand: "pip install --no-cache-dir --only-binary :all: -r 'SIH 2026/SIH26/backend/requirements-render.txt' || pip install --no-cache-dir -r 'SIH 2026/SIH26/backend/requirements-render.txt'"
     startCommand: "cd 'SIH 2026/SIH26' && python -m uvicorn backend.main:app --host 0.0.0.0 --port $PORT"
     envVars:
       - key: PYTHON_VERSION
