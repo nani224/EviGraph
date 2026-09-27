@@ -3534,6 +3534,27 @@ def health():
     stats = graph_engine.get_stats()
     return {"status": "ok", "mode": "demo", "graph": stats}
 
+# ─────────────────────────────────────────────────────────
+# FRONTEND SPA STATIC MOUNT (PRODUCTION & CLOUD DEPLOYMENT)
+# ─────────────────────────────────────────────────────────
+from fastapi.staticfiles import StaticFiles
+
+_frontend_dist = os.path.abspath(os.path.join(_BACKEND_DIR, "..", "frontend", "dist"))
+if os.path.exists(_frontend_dist):
+    _assets_dir = os.path.join(_frontend_dist, "assets")
+    if os.path.exists(_assets_dir):
+        app.mount("/assets", StaticFiles(directory=_assets_dir), name="frontend-assets")
+
+    @app.get("/{full_path:path}")
+    async def serve_frontend_spa(full_path: str):
+        if full_path.startswith("api/") or full_path == "api" or full_path.startswith("docs") or full_path.startswith("openapi.json"):
+            raise HTTPException(status_code=404, detail="API route not found")
+        target_file = os.path.join(_frontend_dist, full_path)
+        if full_path and os.path.isfile(target_file):
+            return FileResponse(target_file)
+        return FileResponse(os.path.join(_frontend_dist, "index.html"))
+
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
+

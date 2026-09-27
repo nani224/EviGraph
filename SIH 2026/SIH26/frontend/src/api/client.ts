@@ -1,7 +1,7 @@
 import axios from 'axios';
 import type { LoginResponse, MeResponse, SecurityOverview } from '../types/auth';
 
-const BASE = 'http://localhost:8000';
+const BASE = import.meta.env.VITE_API_URL || (typeof window !== 'undefined' && window.location.port === '5173' ? 'http://localhost:8000' : '');
 
 const api = axios.create({
   baseURL: BASE,
@@ -261,8 +261,8 @@ export const checkHealth = () => api.get('/api/health').then(r => r.data);
 
 // ─── Sample Evidence Datasets ──────────────────────────
 export const fetchSampleEvidenceFiles = () => api.get('/api/evidence/sample-files').then(r => r.data);
-export const getSampleEvidenceDownloadUrl = (filename: string) => `/api/evidence/sample-files/download/${encodeURIComponent(filename)}`;
-export const getDownloadAllEvidenceZipUrl = () => '/api/evidence/sample-files/download-all';
+export const getSampleEvidenceDownloadUrl = (filename: string) => `${BASE}/api/evidence/sample-files/download/${encodeURIComponent(filename)}`;
+export const getDownloadAllEvidenceZipUrl = () => `${BASE}/api/evidence/sample-files/download-all`;
 
 export default api;
 
